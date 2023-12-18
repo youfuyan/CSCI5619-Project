@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ci6vtxqcqv2dv"]
+[gd_scene load_steps=22 format=3 uid="uid://ci6vtxqcqv2dv"]
 
 [ext_resource type="Script" path="res://scripts/initialize.gd" id="1_mdkq2"]
 [ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="2_ndi7w"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="3_yto4h"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="4_j4pdy"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="6_554y6"]
+[ext_resource type="Texture2D" uid="uid://cgapaa2jfxlp2" path="res://textures/holodeck.png" id="7_jw41l"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_x5epj"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -20,8 +21,28 @@ sky = SubResource("Sky_1k25p")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sj7rs"]
+albedo_color = Color(0.568627, 0.643137, 0.968627, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v3nei"]
+albedo_color = Color(0.568627, 0.643137, 0.968627, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_bu7su"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ilm33"]
+resource_local_to_scene = true
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_bu7su")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_2u5ea"]
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_tva3a"]
 size = Vector2(100, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_45lax"]
+albedo_texture = ExtResource("7_jw41l")
+uv1_scale = Vector3(100, 100, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_omsl3"]
 size = Vector3(100, 1, 100)
@@ -45,43 +66,89 @@ transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75
 shadow_enabled = true
 
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
 
 [node name="LeftController" type="XRController3D" parent="XROrigin3D"]
+unique_name_in_owner = true
 tracker = &"left_hand"
 
 [node name="LeftHand" parent="XROrigin3D/LeftController" instance=ExtResource("2_ndi7w")]
+hand_material_override = SubResource("StandardMaterial3D_sj7rs")
 
 [node name="MovementDirect" parent="XROrigin3D/LeftController" instance=ExtResource("3_yto4h")]
 
 [node name="MovementTurn" parent="XROrigin3D/LeftController" instance=ExtResource("4_j4pdy")]
+turn_mode = 2
 
 [node name="RightController" type="XRController3D" parent="XROrigin3D"]
+unique_name_in_owner = true
 tracker = &"right_hand"
 
 [node name="RightHand" parent="XROrigin3D/RightController" instance=ExtResource("3_47yne")]
+hand_material_override = SubResource("StandardMaterial3D_v3nei")
 
 [node name="MovementDirect" parent="XROrigin3D/RightController" instance=ExtResource("3_yto4h")]
 
 [node name="MovementTurn" parent="XROrigin3D/RightController" instance=ExtResource("4_j4pdy")]
+turn_mode = 2
 
 [node name="PlayerBody" parent="XROrigin3D" instance=ExtResource("6_554y6")]
+
+[node name="SpatialMenu" type="MeshInstance3D" parent="XROrigin3D"]
+transform = Transform3D(2, 0, 0, 0, -8.74228e-08, -1, 0, 2, -4.37114e-08, 0.028, 1.5, -2.818)
+material_override = SubResource("StandardMaterial3D_ilm33")
+mesh = SubResource("PlaneMesh_2u5ea")
+skeleton = NodePath("../..")
 
 [node name="Ground" type="StaticBody3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
 mesh = SubResource("PlaneMesh_tva3a")
+surface_material_override/0 = SubResource("StandardMaterial3D_45lax")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 shape = SubResource("BoxShape3D_omsl3")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9422, 1, -2)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
 mesh = SubResource("SphereMesh_somnr")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("SphereShape3D_l3reb")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(1024, 512)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="SubViewport"]
+
+[node name="Button" type="Button" parent="SubViewport/CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -50.0
+offset_right = 100.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "do
+
+  swapped = false
+
+  for i = 1 to indexOfLastUnsortedElement-1
+
+    if leftElement > rightElement
+
+      swap(leftElement, rightElement)
+
+      swapped = true; ++swapCounter
+
+while swapped"
+alignment = 0
