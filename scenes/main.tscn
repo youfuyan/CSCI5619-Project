@@ -1,0 +1,87 @@
+[gd_scene load_steps=15 format=3 uid="uid://ci6vtxqcqv2dv"]
+
+[ext_resource type="Script" path="res://scripts/initialize.gd" id="1_mdkq2"]
+[ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="2_ndi7w"]
+[ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="3_47yne"]
+[ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="3_yto4h"]
+[ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="4_j4pdy"]
+[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="6_554y6"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_x5epj"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_1k25p"]
+sky_material = SubResource("ProceduralSkyMaterial_x5epj")
+
+[sub_resource type="Environment" id="Environment_sg80f"]
+background_mode = 2
+sky = SubResource("Sky_1k25p")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_tva3a"]
+size = Vector2(100, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_omsl3"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s4ie4"]
+albedo_color = Color(0.454902, 0.482353, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_somnr"]
+material = SubResource("StandardMaterial3D_s4ie4")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_l3reb"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_mdkq2")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_sg80f")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
+
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+
+[node name="LeftController" type="XRController3D" parent="XROrigin3D"]
+tracker = &"left_hand"
+
+[node name="LeftHand" parent="XROrigin3D/LeftController" instance=ExtResource("2_ndi7w")]
+
+[node name="MovementDirect" parent="XROrigin3D/LeftController" instance=ExtResource("3_yto4h")]
+
+[node name="MovementTurn" parent="XROrigin3D/LeftController" instance=ExtResource("4_j4pdy")]
+
+[node name="RightController" type="XRController3D" parent="XROrigin3D"]
+tracker = &"right_hand"
+
+[node name="RightHand" parent="XROrigin3D/RightController" instance=ExtResource("3_47yne")]
+
+[node name="MovementDirect" parent="XROrigin3D/RightController" instance=ExtResource("3_yto4h")]
+
+[node name="MovementTurn" parent="XROrigin3D/RightController" instance=ExtResource("4_j4pdy")]
+
+[node name="PlayerBody" parent="XROrigin3D" instance=ExtResource("6_554y6")]
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("PlaneMesh_tva3a")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_omsl3")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -2)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("SphereMesh_somnr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("SphereShape3D_l3reb")
