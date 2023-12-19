@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="CSCI5619-Project"
+config/name="CSCI 5619 Lecture 26"
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
@@ -23,7 +23,12 @@ XRToolsUserSettings="*res://addons/godot-xr-tools/user_settings/user_settings.gd
 
 enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
 
+[rendering]
+
+textures/vram_compression/import_etc2_astc=true
+
 [xr]
 
 openxr/enabled=true
+openxr/startup_alert=false
 shaders/enabled=true
