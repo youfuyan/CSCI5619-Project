@@ -30,6 +30,8 @@ const DEFAULT_RANGE_MASK := 0b0000_0000_0000_0000_0000_0000_0000_0100
 # Constant for worst-case grab distance
 const MAX_GRAB_DISTANCE2: float = 1000000.0
 
+# Threshold distance for swapping objects (adjust as needed)
+const SWAP_DISTANCE_THRESHOLD = 0.2
 
 ## Pickup enabled property
 @export var enabled : bool = true
@@ -66,6 +68,12 @@ const MAX_GRAB_DISTANCE2: float = 1000000.0
 ## Throw velocity averaging
 @export var velocity_samples: int = 5
 
+
+# Left pickup node
+@onready var _left_pickup_node := XRToolsFunctionPickup.find_left(self)
+
+# Right pickup node
+@onready var _right_pickup_node := XRToolsFunctionPickup.find_right(self)
 
 # Public fields
 var closest_object : Node3D = null
@@ -173,7 +181,11 @@ func _process(delta):
 		_velocity_averager.add_transform(delta, global_transform)
 
 	_update_closest_object()
-
+	# print("Checking for swap")
+	# print("Left controller position: ", %LeftController.global_transform.origin)
+	# print("Right controller position: ", %RightController.global_transform.origin)
+	# print("Distance: ", %LeftController.global_transform.origin.distance_to( %RightController.global_transform.origin))
+	# _check_and_swap_objects()
 
 ## Find an [XRToolsFunctionPickup] node.
 ##
@@ -430,3 +442,40 @@ func _on_grip_pressed() -> void:
 func _on_grip_release() -> void:
 	if is_instance_valid(picked_up_object) and picked_up_object.press_to_hold:
 		drop_object()
+
+# func _check_and_swap_objects():
+# 	# Find left and right pickup instances
+# 	# print("Entered _check_and_swap_objects")
+# 	var left_pickup = _left_pickup_node
+# 	var right_pickup = _right_pickup_node
+# 	# print("Left pickup: ", left_pickup)
+# 	# print("Right pickup: ", right_pickup)
+
+# 	if not left_pickup or not right_pickup:
+# 		return
+
+# 	# Check if both controllers are holding objects and are close enough
+# 	if is_instance_valid(left_pickup.picked_up_object) and is_instance_valid(right_pickup.picked_up_object):
+# 		print("Both controllers are holding objects")
+# 		if left_pickup.global_transform.origin.distance_to(right_pickup.global_transform.origin) < SWAP_DISTANCE_THRESHOLD:
+# 			_swap_objects(left_pickup, right_pickup)
+# 	else:
+# 		print("One or both controllers are not holding objects")
+
+# func _swap_objects(left_pickup, right_pickup):
+# 	# Store the objects being held
+# 	var left_object = left_pickup.picked_up_object
+# 	var right_object = right_pickup.picked_up_object
+# 	# Debug the swap function
+# 	print("Swapping objects")
+# 	print("Left object:", left_object)
+# 	print("Right object:", right_object)
+# 	# Swap the objects
+# 	left_pickup._pick_up_object(right_object)
+# 	right_pickup._pick_up_object(left_object)
+# 	# Debug the swap function
+# 	print("Swapped objects")
+# 	print("Left object:", left_object)
+# 	print("Right object:", right_object)
+
+

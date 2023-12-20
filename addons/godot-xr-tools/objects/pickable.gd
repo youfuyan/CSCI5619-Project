@@ -107,6 +107,7 @@ var _highlight_requests : Dictionary = {}
 # Is this node highlighted
 var _highlighted : bool = false
 
+# var initial_position : Vector3 = Vector3.ZERO
 
 # Remember some state so we can return to it when the user drops the object
 @onready var original_collision_mask : int = collision_mask
@@ -398,3 +399,31 @@ func _get_grab_point(grabber : Node3D, current : XRToolsGrabPoint) -> XRToolsGra
 func _set_ranged_grab_method(new_value: int) -> void:
 	ranged_grab_method = new_value
 	can_ranged_grab = new_value != RangedMethod.NONE
+
+# func _store_initial_position(position:Vector3) -> void:
+# 	initial_position = position
+# 	print("initial_position: %s" % initial_position)
+
+# func _reset_initial_position() -> void:
+# 	global_transform.origin = initial_position
+# 	print("reset_initial_position: %s" % initial_position)
+
+
+# func _on_picked_up(pickable):
+# 	#call _store_initial_position()
+# 	# _store_initial_position()
+# 	pass
+
+# func _on_dropped(pickable):
+# 	#call _reset_initial_position()
+# 	_reset_initial_position()
+
+
+# func _on_index_0_area_entered(area):
+# 	# store the area position plus the offset to place cubic on the top of area
+# 	var area_position = area.global_transform.origin
+# 	var area_offset = area.get_area_offset()
+# 	var area_top = area_position + area_offset
+# 	_store_initial_position(area_top)
+
+
