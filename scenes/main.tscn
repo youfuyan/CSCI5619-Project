@@ -1,4 +1,4 @@
-[gd_scene load_steps=121 format=3 uid="uid://d46wrkgdeynk"]
+[gd_scene load_steps=132 format=3 uid="uid://d46wrkgdeynk"]
 
 [ext_resource type="Script" path="res://scripts/initialize.gd" id="1_xecma"]
 [ext_resource type="Script" path="res://scripts/locomotion.gd" id="2_wmrq2"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="4_3ykpw"]
 [ext_resource type="PackedScene" uid="uid://doel0ns5nc6bm" path="res://controllers/controller_r.fbx" id="4_5ti0a"]
 [ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="4_cpx2h"]
-[ext_resource type="Texture2D" uid="uid://cgapaa2jfxlp2" path="res://textures/holodeck.png" id="4_vbrye"]
 [ext_resource type="Script" path="res://scripts/laser_pointer.gd" id="5_v3i65"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="6_jv61b"]
 [ext_resource type="Script" path="res://scripts/spatial_menu.gd" id="7_4vcka"]
@@ -28,12 +27,14 @@
 [ext_resource type="Script" path="res://scripts/cubic29.gd" id="16_e75nu"]
 [ext_resource type="Script" path="res://scripts/index_area_4.gd" id="16_towxw"]
 [ext_resource type="Script" path="res://scripts/cubic37.gd" id="17_4mg3b"]
+[ext_resource type="Texture2D" uid="uid://cd20ts8lt5s7c" path="res://textures/51904_Sterling.jpg" id="17_cjvyo"]
 [ext_resource type="Script" path="res://scripts/Sorted_Text.gd" id="29_01eus"]
 [ext_resource type="Script" path="res://scripts/cuboid_10.gd" id="30_ruh5l"]
 [ext_resource type="Script" path="res://scripts/cuboid_14.gd" id="31_quwdp"]
 [ext_resource type="Script" path="res://scripts/cuboid_17.gd" id="32_w7y56"]
 [ext_resource type="Script" path="res://scripts/cuboid_29.gd" id="33_7fryk"]
 [ext_resource type="Script" path="res://scripts/cuboid_37.gd" id="34_6mfl7"]
+[ext_resource type="PackedScene" uid="uid://sixe3exonixe" path="res://scenes/classroom.tscn" id="35_8wr42"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gryx6"]
 albedo_color = Color(0.541176, 0.666667, 0.929412, 1)
@@ -90,6 +91,7 @@ sky_material = SubResource("ProceduralSkyMaterial_osj4q")
 [sub_resource type="Environment" id="Environment_pi0m0"]
 background_mode = 2
 sky = SubResource("Sky_noqmy")
+ambient_light_color = Color(1, 1, 1, 1)
 tonemap_mode = 2
 fog_density = 0.001
 fog_sky_affect = 0.0
@@ -100,7 +102,7 @@ size = Vector2(100, 100)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ym5vi"]
 shading_mode = 2
 albedo_color = Color(0.882353, 0.882353, 0.882353, 1)
-albedo_texture = ExtResource("4_vbrye")
+albedo_texture = ExtResource("17_cjvyo")
 uv1_scale = Vector3(100, 100, 1)
 texture_filter = 5
 
@@ -321,12 +323,27 @@ albedo_color = Color(0.678431, 0.847059, 0.901961, 1)
 material = SubResource("StandardMaterial3D_3w0s1")
 size = Vector3(0.5, 1, 0.5)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_05dup"]
+
+[sub_resource type="TextMesh" id="TextMesh_56y48"]
+material = SubResource("StandardMaterial3D_05dup")
+text = "10"
+font_size = 29
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kge2y"]
 albedo_color = Color(0.678431, 0.847059, 0.901961, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_buftx"]
 material = SubResource("StandardMaterial3D_kge2y")
 size = Vector3(0.5, 1.4, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ryg8g"]
+
+[sub_resource type="TextMesh" id="TextMesh_vue24"]
+material = SubResource("StandardMaterial3D_ryg8g")
+text = "14
+"
+font_size = 29
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iu6pu"]
 albedo_color = Color(0.678431, 0.847059, 0.901961, 1)
@@ -335,6 +352,14 @@ albedo_color = Color(0.678431, 0.847059, 0.901961, 1)
 material = SubResource("StandardMaterial3D_iu6pu")
 size = Vector3(0.5, 1.7, 0.5)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cv448"]
+
+[sub_resource type="TextMesh" id="TextMesh_21h4e"]
+material = SubResource("StandardMaterial3D_cv448")
+text = "17
+"
+font_size = 29
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lu4oh"]
 albedo_color = Color(0.678431, 0.847059, 0.901961, 1)
 
@@ -342,12 +367,27 @@ albedo_color = Color(0.678431, 0.847059, 0.901961, 1)
 material = SubResource("StandardMaterial3D_lu4oh")
 size = Vector3(0.5, 2.9, 0.5)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8jkni"]
+
+[sub_resource type="TextMesh" id="TextMesh_o2nvg"]
+material = SubResource("StandardMaterial3D_8jkni")
+text = "29"
+font_size = 29
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b12ue"]
 albedo_color = Color(0.678431, 0.847059, 0.901961, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_qfj6u"]
 material = SubResource("StandardMaterial3D_b12ue")
 size = Vector3(0.5, 3.7, 0.5)
+
+[sub_resource type="TextMesh" id="TextMesh_hto4m"]
+text = "37
+"
+font_size = 29
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vlm47"]
+size = Vector3(18, 5, 1)
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_xecma")
@@ -934,27 +974,68 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -7.84771)
 mesh = SubResource("BoxMesh_qoi5m")
 script = ExtResource("30_ruh5l")
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="cuboid_10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.646749, 0)
+mesh = SubResource("TextMesh_56y48")
+
 [node name="cuboid_14" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, -7.84771)
 mesh = SubResource("BoxMesh_buftx")
 skeleton = NodePath("../cuboid_10")
 script = ExtResource("31_quwdp")
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="cuboid_14"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.857033, 0)
+mesh = SubResource("TextMesh_vue24")
+
 [node name="cuboid_17" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.5, -7.84771)
 mesh = SubResource("BoxMesh_74hor")
 script = ExtResource("32_w7y56")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="cuboid_17"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00623, 0)
+mesh = SubResource("TextMesh_21h4e")
 
 [node name="cuboid_29" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.5, -7.84771)
 mesh = SubResource("BoxMesh_kjrl0")
 script = ExtResource("33_7fryk")
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="cuboid_29"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.57636, 0)
+mesh = SubResource("TextMesh_o2nvg")
+
 [node name="cuboid_37" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, -7.84771)
 mesh = SubResource("BoxMesh_qfj6u")
 skeleton = NodePath("../cuboid_29")
 script = ExtResource("34_6mfl7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="cuboid_37"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.98329, 0)
+mesh = SubResource("TextMesh_hto4m")
+
+[node name="classroom" parent="." instance=ExtResource("35_8wr42")]
+transform = Transform3D(-6.55671e-08, 0, -1.5, 0, 1.5, 0, 1.5, 0, -6.55671e-08, 0, -1, -5)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -6.43368, 2.03563, -4.03434)
+shape = SubResource("BoxShape3D_vlm47")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6.62523, 2.03563, -4.03434)
+shape = SubResource("BoxShape3D_vlm47")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(0.999901, 0, 0.0141193, 0, 1, 0, -0.0141193, 0, 0.9999, 1.47869, 2.03563, 4.39108)
+shape = SubResource("BoxShape3D_vlm47")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(0.999901, 0, 0.0141193, 0, 1, 0, -0.0141193, 0, 0.9999, 0.941039, 2.03563, -11.8739)
+shape = SubResource("BoxShape3D_vlm47")
 
 [connection signal="button_pressed" from="XROrigin3D/LeftController" to="XROrigin3D/RightController/LaserPointer" method="_on_ax_button_pressed"]
 [connection signal="button_pressed" from="XROrigin3D/LeftController" to="XROrigin3D/SpatialMenu" method="_on_by_button_pressed"]
